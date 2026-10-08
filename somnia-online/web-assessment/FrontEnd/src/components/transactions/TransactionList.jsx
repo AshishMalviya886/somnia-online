@@ -1,15 +1,9 @@
 import { Table, Tag, Space, Button, Popconfirm, Empty, Spin } from 'antd';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import dayjs from 'dayjs';
 
-const TransactionList = ({
-  transactions = [],
-  loading = false,
-  onEdit,
-  onDelete,
-  onTypeFilter,
-  onCategoryFilter
-}) => {
+const TransactionList = ({ transactions = [], loading = false, onEdit, onDelete, onTypeFilter, onCategoryFilter }) => {
   const columns = [
     {
       title: 'Date',
@@ -59,12 +53,7 @@ const TransactionList = ({
       key: 'actions',
       render: (_, record) => (
         <Space size="small">
-          <Button
-            type="primary"
-            size="small"
-            onClick={() => onEdit(record)}
-            icon={<EditOutlined />}
-          />
+          <Button type="primary" size="small" onClick={() => onEdit(record)} icon={<FontAwesomeIcon icon={faPen} />} />
           <Popconfirm
             title="Delete Transaction"
             description="Are you sure you want to delete this transaction?"
@@ -72,7 +61,7 @@ const TransactionList = ({
             okText="Yes"
             cancelText="No"
           >
-            <Button danger size="small" icon={<DeleteOutlined />} />
+            <Button danger size="small" icon={<FontAwesomeIcon icon={faTrash} />} />
           </Popconfirm>
         </Space>
       )

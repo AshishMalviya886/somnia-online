@@ -45,11 +45,7 @@ const TransactionForm = ({ initialValues, onSubmit, loading, isEditing }) => {
 
   return (
     <Form form={form} layout="vertical" onFinish={handleSubmit} requiredMark="optional">
-      <Form.Item
-        name="type"
-        label="Type"
-        rules={[{ required: true, message: 'Please select transaction type' }]}
-      >
+      <Form.Item name="type" label="Type" rules={[{ required: true, message: 'Please select transaction type' }]}>
         <Select
           placeholder="Select Income or Expense"
           options={[
@@ -67,28 +63,14 @@ const TransactionForm = ({ initialValues, onSubmit, loading, isEditing }) => {
           { pattern: /^[0-9]*\.?[0-9]+$/, message: 'Amount must be a valid number' }
         ]}
       >
-        <InputNumber
-          placeholder="0.00"
-          step={0.01}
-          min={0.01}
-          style={{ width: '100%' }}
-          precision={2}
-        />
+        <InputNumber placeholder="0.00" step={0.01} min={0.01} style={{ width: '100%' }} precision={2} />
       </Form.Item>
 
-      <Form.Item
-        name="category"
-        label="Category"
-        rules={[{ required: true, message: 'Please select a category' }]}
-      >
+      <Form.Item name="category" label="Category" rules={[{ required: true, message: 'Please select a category' }]}>
         <Select placeholder="Select category" options={categoryOptions} allowClear />
       </Form.Item>
 
-      <Form.Item
-        name="date"
-        label="Date"
-        rules={[{ required: true, message: 'Please select date' }]}
-      >
+      <Form.Item name="date" label="Date" rules={[{ required: true, message: 'Please select date' }]}>
         <DatePicker style={{ width: '100%' }} />
       </Form.Item>
 
@@ -97,12 +79,7 @@ const TransactionForm = ({ initialValues, onSubmit, loading, isEditing }) => {
         label="Description"
         rules={[{ max: 512, message: 'Description cannot exceed 512 characters' }]}
       >
-        <Input.TextArea
-          placeholder="Optional description"
-          rows={3}
-          maxLength={512}
-          showCount
-        />
+        <Input.TextArea placeholder="Optional description" rows={3} maxLength={512} showCount />
       </Form.Item>
 
       <Form.Item>

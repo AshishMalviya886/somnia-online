@@ -4,8 +4,21 @@ import axios from 'axios';
 import { Modal } from 'antd';
 import i18n from './i18n';
 
+const resolveEndpoint = () => {
+  const configured = import.meta.env.VITE_ENDPOINT;
+  if (!configured || typeof window === 'undefined') return configured;
+
+  try {
+    const url = new URL(configured);
+    url.hostname = window.location.hostname;
+    return url.origin;
+  } catch {
+    return configured;
+  }
+};
+
 const Api = axios.create({
-  baseURL: import.meta.env.VITE_ENDPOINT,
+  baseURL: resolveEndpoint(),
   withCredentials: true
 });
 

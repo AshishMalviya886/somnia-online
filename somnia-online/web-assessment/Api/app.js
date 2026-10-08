@@ -22,10 +22,19 @@ const app = express();
 
 const server = createServer(app);
 
+const corsOrigins = [
+  ...new Set(
+    [process.env.CORS_ORIGIN, 'http://localhost', 'http://127.0.0.1', 'http://localhost:3000', 'http://127.0.0.1:3000']
+      .flatMap(origin => (origin || '').split(','))
+      .map(origin => origin.trim())
+      .filter(Boolean)
+  )
+];
+
 app.use(
   cors({
     credentials: true,
-    origin: process.env.CORS_ORIGIN,
+    origin: corsOrigins,
     allowedHeaders: ['content-type'],
     exposedHeaders: ['x-total-count', 'x-next-key']
   })
@@ -39,10 +48,6 @@ app.use(trimmer());
 app.use(swagger());
 app.use(passport());
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
-app.use((req, res, next) => {
-  req.io = io;
-  return next();
-});
 
 app.get('/', (req, res, next) => next(SendData({ message: 'RestAPI is alive!' })));
 

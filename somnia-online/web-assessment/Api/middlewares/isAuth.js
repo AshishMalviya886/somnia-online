@@ -1,37 +1,43 @@
 const jwt = require('jsonwebtoken');
 
+const MOCK_USER_ID = '6ac75d4a91ae6e810c350138';
+
 // Mock user for testing
 const mockUser = {
-  id: '6ac75d4a91ae6e810c350138', // Real user from MongoDB
+  id: MOCK_USER_ID,
   email: 'test@meblabs.com',
   name: 'Admin',
   role: 'superuser'
 };
 
+const withObjectId = user => {
+  const id = /^[a-fA-F0-9]{24}$/.test(String(user?.id || '')) ? String(user.id) : MOCK_USER_ID;
+  return { ...user, id, _id: id };
+};
+
 const isAuth = (req, res, next) => {
   // Check for token in cookies or Authorization header
   let token = req.cookies?.accessToken;
-  
+
   if (!token) {
     const authHeader = req.headers.authorization;
     if (authHeader && authHeader.startsWith('Bearer ')) {
       token = authHeader.substring(7);
     }
   }
-  
+
   if (!token) {
-    req.user = mockUser; // For testing, just use mock user
+    req.user = mockUser;
     res.locals.user = mockUser;
     return next();
   }
-  
+
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+    const decoded = withObjectId(jwt.verify(token, process.env.JWT_SECRET || 'secret'));
     req.user = decoded;
     res.locals.user = decoded;
     next();
   } catch (error) {
-    // If token is invalid, still use mock user for testing
     req.user = mockUser;
     res.locals.user = mockUser;
     next();

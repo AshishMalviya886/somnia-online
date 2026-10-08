@@ -29,7 +29,7 @@ exports.login = async (req, res, next) => {
     
     // Create a mock user object for testing
     const mockUser = {
-      _id: '1',
+      _id: '6ac75d4a91ae6e810c350138',
       email: email,
       name: 'Test User',
       lastname: 'User',
@@ -67,7 +67,7 @@ exports.check = async (req, res, next) => {
   try {
     // Return mock user data for testing
     const mockData = {
-      _id: '1',
+      _id: '6ac75d4a91ae6e810c350138',
       email: 'test@meblabs.com',
       name: 'Test User',
       lastname: 'User',
@@ -188,7 +188,7 @@ exports.refreshToken = async (req, res, next) => {
   try {
     // Mock refresh token
     const mockUser = {
-      _id: '1',
+      _id: '6ac75d4a91ae6e810c350138',
       email: 'test@meblabs.com',
       name: 'Test User',
       response: function() {
